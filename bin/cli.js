@@ -1,16 +1,17 @@
 #!/usr/bin/env node
 /**
- * ai-visual-skills CLI
+ * Agent Skills 跨工具安装 CLI（通用版）
  *
- * 把本包内置的 Agent Skills 安装到各家 AI 智能体的 Skills 目录。
+ * 把本包 skills/ 目录下的技能安装到各家 AI 智能体的 Skills 目录。
  * 自包含、无需联网，装完即用。
+ * 包名与技能名全部从 package.json 与 skills/ 自动读取，可直接复制到任何技能仓库复用。
  *
  * 用法：
- *   npx ai-visual-skills list
- *   npx ai-visual-skills install --all
- *   npx ai-visual-skills install -a claude-code -a cursor
- *   npx ai-visual-skills install -p --to ./my-project
- *   npx ai-visual-skills uninstall --all
+ *   npx <包名> list
+ *   npx <包名> install --all
+ *   npx <包名> install -a claude-code -a cursor
+ *   npx <包名> install -p --to ./my-project
+ *   npx <包名> uninstall --all
  */
 
 import fs from "node:fs";
@@ -21,6 +22,8 @@ import { fileURLToPath } from "node:url";
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const PKG_ROOT = path.resolve(__dirname, "..");
 const SKILLS_DIR = path.join(PKG_ROOT, "skills");
+const PKG = JSON.parse(fs.readFileSync(path.join(PKG_ROOT, "package.json"), "utf8"));
+const CLI_NAME = PKG.name;
 
 // ─────────────────────────────────────────────────────────────
 // Agent 注册表
@@ -297,13 +300,14 @@ function parseArgs(argv) {
 }
 
 function printHelp() {
-  const pkg = JSON.parse(fs.readFileSync(path.join(PKG_ROOT, "package.json"), "utf8"));
+  const skillNames = listSkills();
+  const sampleSkill = skillNames[0] || "<技能名>";
   console.log(`
-${color("bold", "ai-visual-skills")} ${color("dim", `v${pkg.version}`)}
-${pkg.description || ""}
+${color("bold", CLI_NAME)} ${color("dim", `v${PKG.version}`)}
+${PKG.description || ""}
 
 ${color("bold", "用法")}
-  npx ai-visual-skills <命令> [选项]
+  npx ${CLI_NAME} <命令> [选项]
 
 ${color("bold", "命令")}
   list, ls              列出内置技能与支持的 agent
@@ -327,11 +331,14 @@ ${color("bold", "选项")}
   -v, --version         显示版本
 
 ${color("bold", "示例")}
-  npx ai-visual-skills install --all
-  npx ai-visual-skills install -a claude-code,cursor,qoder
-  npx ai-visual-skills install -s image-prompt-director -a cursor
-  npx ai-visual-skills install -p --to ./my-project
-  npx ai-visual-skills uninstall --all
+  npx ${CLI_NAME} install --all
+  npx ${CLI_NAME} install -a claude-code,cursor,qoder
+  npx ${CLI_NAME} install -s ${sampleSkill} -a cursor
+  npx ${CLI_NAME} install -p --to ./my-project
+  npx ${CLI_NAME} uninstall --all
+
+${color("bold", "本包内置技能")}
+${skillNames.map((s) => `  ${s}`).join("\n") || "  （无）"}
 
 ${color("bold", "支持的 agent")}
 ${Object.entries(AGENTS)
@@ -425,7 +432,7 @@ function cmdInstall(opts) {
     targets.push({ agent, dir, isDup });
   }
 
-  console.log(color("bold", "\nai-visual-skills · 安装\n"));
+  console.log(color("bold", `\n${CLI_NAME} · 安装\n`));
   console.log(`  技能    ${skills.join(", ")}`);
   console.log(
     `  目标    ${agents.length} 个 agent${autoDetected ? color("dim", "（自动探测）") : ""} → ${targets.filter((t) => !t.isDup).length} 个目录`
@@ -517,7 +524,7 @@ function cmdUninstall(opts) {
   }
   if (opts.to) dirs.push({ agent: "custom", dir: path.resolve(opts.to) });
 
-  console.log(color("bold", "\nai-visual-skills · 卸载\n"));
+  console.log(color("bold", `\n${CLI_NAME} · 卸载\n`));
 
   let removed = 0;
   let missing = 0;
