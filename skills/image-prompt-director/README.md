@@ -28,7 +28,7 @@
 ### 方式一：skills CLI（推荐）
 
 ```bash
-npx skills add <你的GitHub用户名>/ai-visual-skills -s image-prompt-director -g -y
+npx skills add <sundny8>/ai-visual-skills -s image-prompt-director -g -y
 ```
 
 ### 方式二：npm
@@ -40,7 +40,7 @@ npx ai-visual-skills install -s image-prompt-director --all
 ### 方式三：克隆仓库后跑脚本
 
 ```bash
-git clone https://github.com/<你的GitHub用户名>/ai-visual-skills.git
+git clone https://github.com/<sundny8>/ai-visual-skills.git
 cd ai-visual-skills
 
 # Node（零依赖）

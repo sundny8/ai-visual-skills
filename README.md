@@ -24,21 +24,21 @@
 ### 方式一：skills CLI（推荐）
 
 ```bash
-npx skills add <你的GitHub用户名>/ai-visual-skills
+npx skills add <sundny8>/ai-visual-skills
 ```
 
 交互式选择要装的技能和目标 agent。非交互式：
 
 ```bash
 # 全部技能装到全部 agent（用户级全局）
-npx skills add <你的GitHub用户名>/ai-visual-skills --all -g -y
+npx skills add <sundny8>/ai-visual-skills --all -g -y
 
 # 只装指定技能到指定 agent
-npx skills add <你的GitHub用户名>/ai-visual-skills \
+npx skills add <sundny8>/ai-visual-skills \
   -s image-prompt-director -a claude-code -a cursor -g -y
 
 # 先看看仓库里有什么
-npx skills add <你的GitHub用户名>/ai-visual-skills --list
+npx skills add <sundny8>/ai-visual-skills --list
 ```
 
 ### 方式二：npm
@@ -65,7 +65,7 @@ ai-visual-skills uninstall --all
 ### 方式三：克隆仓库
 
 ```bash
-git clone https://github.com/<你的GitHub用户名>/ai-visual-skills.git
+git clone https://github.com/<sundny8>/ai-visual-skills.git
 cd ai-visual-skills
 python scripts/install.py --all
 ```

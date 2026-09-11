@@ -44,10 +44,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/YOUR-GITHUB-NAME/ai-visual-skills.git"
+    "url": "git+https://github.com/sundny8/ai-visual-skills.git"
   },
   "bugs": {
-    "url": "https://github.com/YOUR-GITHUB-NAME/ai-visual-skills/issues"
+    "url": "https://github.com/sundny8/ai-visual-skills/issues"
   },
-  "homepage": "https://github.com/YOUR-GITHUB-NAME/ai-visual-skills#readme"
+  "homepage": "https://github.com/sundny8/ai-visual-skills#readme"
 }
