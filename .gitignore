@@ -1,0 +1,45 @@
+# 依赖
+node_modules/
+.pnp
+.pnp.js
+
+# 构建与缓存
+__pycache__/
+*.py[cod]
+*.egg-info/
+dist/
+build/
+.cache/
+
+# 测试与临时产物
+_test/
+_installtest/
+*.log
+npm-debug.log*
+
+# 环境与密钥
+.env
+.env.local
+.env.*.local
+*.pem
+
+# 编辑器与系统
+.vscode/*
+!.vscode/extensions.json
+.idea/
+.DS_Store
+Thumbs.db
+*.swp
+
+# agent 本地安装目录（避免把装好的技能误提交）
+.claude/
+.cursor/
+.codex/
+.qoder/
+.workbuddy-ai/
+.workbuddy/
+.agents/
+.windsurf/
+.codebuddy/
+.copilot/
+.gemini/

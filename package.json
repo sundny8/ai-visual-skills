@@ -1,0 +1,52 @@
+{
+  "name": "ai-visual-skills",
+  "version": "1.0.0",
+  "description": "跨工具 Agent Skills：AI 视觉导演（图片提示词）+ Seedance 2.5 电影导演（30 秒视频提示词）。一次安装，Claude Code / Codex / Cursor / Qoder / WorkBuddy 等通用。",
+  "keywords": [
+    "agent-skills",
+    "claude-code",
+    "claude-skills",
+    "cursor",
+    "codex",
+    "qoder",
+    "workbuddy",
+    "prompt-engineering",
+    "text-to-image",
+    "text-to-video",
+    "image-prompt",
+    "video-prompt",
+    "midjourney",
+    "stable-diffusion",
+    "seedance",
+    "ai-art",
+    "cinematography"
+  ],
+  "license": "MIT",
+  "type": "module",
+  "bin": {
+    "ai-visual-skills": "bin/cli.js"
+  },
+  "files": [
+    "bin/",
+    "scripts/",
+    "skills/",
+    "README.md",
+    "LICENSE"
+  ],
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "scripts": {
+    "validate": "node scripts/validate.js",
+    "test": "node scripts/validate.js",
+    "prepublishOnly": "node scripts/validate.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/YOUR-GITHUB-NAME/ai-visual-skills.git"
+  },
+  "bugs": {
+    "url": "https://github.com/YOUR-GITHUB-NAME/ai-visual-skills/issues"
+  },
+  "homepage": "https://github.com/YOUR-GITHUB-NAME/ai-visual-skills#readme"
+}

@@ -1,0 +1,60 @@
+name: validate
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  validate:
+    name: 校验技能规范
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [18, 20, 22]
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: 设置 Node ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: 校验 SKILL.md 规范
+        run: node scripts/validate.js
+
+      - name: 校验 CLI 语法
+        run: node --check bin/cli.js
+
+      - name: 冒烟测试（安装到临时目录）
+        run: |
+          TMPDIR=$(mktemp -d)
+          node bin/cli.js install --to "$TMPDIR"
+          test -f "$TMPDIR/image-prompt-director/SKILL.md"
+          test -f "$TMPDIR/seedance-director/SKILL.md"
+          echo "安装冒烟测试通过"
+
+  python-installer:
+    name: 校验 Python 安装器
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: 语法检查
+        run: python -m py_compile scripts/install.py
+
+      - name: 列出技能
+        run: python scripts/install.py --list
+
+      - name: 冒烟测试（安装到临时目录）
+        run: |
+          TMPDIR=$(mktemp -d)
+          python scripts/install.py --to "$TMPDIR"
+          test -f "$TMPDIR/image-prompt-director/SKILL.md"
+          test -f "$TMPDIR/seedance-director/SKILL.md"
+          echo "Python 安装器冒烟测试通过"
